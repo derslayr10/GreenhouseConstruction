@@ -26,3 +26,4 @@ This mod uses an image I made based off the vanilla Greenhouse appearance for th
 
 # Current Issues
 * There is currently an issue where I do not know how to make the image in Robin's shop appear for the building, so for the time being the image in the shop is going to be a purple square.
+* There seems to be a bug where players can enter the void around the Greenhouse Interior by walking out to left or right of the door and attempting to exit the Greenhouse, though I am unsure if this is the result of my mod or the custom Greenhouse mod I use.
