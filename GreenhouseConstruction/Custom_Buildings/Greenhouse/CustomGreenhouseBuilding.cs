@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 using PyTK.CustomElementHandler;
 using StardewValley;
@@ -6,12 +7,15 @@ using StardewValley.Buildings;
 
 namespace GreenhouseConstruction.Custom_Buildings.Greenhouse
 {
-    public class Custom_Greenhouse_Building : Building, ISaveElement
+
+    [XmlType("Mods_Derslayr_CustomGreenhouseBuilding")]
+
+    public class CustomGreenhouseBuilding : Building, ISaveElement
     {
 
-        private static readonly BluePrint BluePrint = new BluePrint("SpecialGreenhouse");
+        private static readonly BluePrint BluePrint = new BluePrint("GreenhouseConstruction_SpecialGreenhouse");
 
-        public Custom_Greenhouse_Building() : base(Custom_Greenhouse_Building.BluePrint, Vector2.Zero) {
+        public CustomGreenhouseBuilding() : base(CustomGreenhouseBuilding.BluePrint, Vector2.Zero) {
         
 
         
@@ -19,7 +23,7 @@ namespace GreenhouseConstruction.Custom_Buildings.Greenhouse
 
         protected override GameLocation getIndoors(string nameOfIndoorsWithoutUnique)
         {
-            return new Custom_Greenhouse_Location();
+            return new CustomGreenhouseLocation();
         }
 
         public Dictionary<string, string> getAdditionalSaveData()
@@ -30,7 +34,7 @@ namespace GreenhouseConstruction.Custom_Buildings.Greenhouse
         public object getReplacement()
         {
 
-            Mill building = new Mill(new BluePrint("SpecialGreenhouse"), new Vector2(this.tileX.Value, this.tileY.Value));
+            Mill building = new Mill(new BluePrint("GreenhouseConstruction_SpecialGreenhouse"), new Vector2(this.tileX.Value, this.tileY.Value));
             building.indoors.Value = this.indoors.Value;
             building.daysOfConstructionLeft.Value = this.daysOfConstructionLeft.Value;
             building.tileX.Value = this.tileX.Value;

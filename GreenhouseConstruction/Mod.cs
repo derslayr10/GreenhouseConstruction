@@ -6,8 +6,10 @@ using Microsoft.Xna.Framework.Graphics;
 using GreenhouseConstruction.Custom_Buildings.Greenhouse;
 
 using StardewModdingAPI;
-
 using StardewModdingAPI.Events;
+
+using SpaceShared;
+using SpaceShared.APIs;
 
 using StardewValley;
 using StardewValley.Locations;
@@ -27,11 +29,18 @@ namespace GreenhouseConstruction
 
             this.GreenhouseExterior = this.Helper.Content.Load<Texture2D>("assets/GreenhouseConstruction_Greenhouse.png");
 
-
+            helper.Events.GameLoop.GameLaunched += this.onGameLaunched;
             helper.Events.Display.MenuChanged += this.OnMenuChanged;
             helper.Events.Player.Warped += this.onWarped;
             helper.Events.GameLoop.SaveLoaded += this.FixWarps;
 
+        }
+
+        private void onGameLaunched(object sender, GameLaunchedEventArgs e)
+        {
+            var sc = this.Helper.ModRegistry.GetApi<ISpaceCoreApi>("spacechase0.SpaceCore");
+            sc.RegisterSerializerType(typeof(CustomGreenhouseBuilding));
+            sc.RegisterSerializerType(typeof(CustomGreenhouseLocation));
         }
 
         private void FixWarps(object sender, EventArgs e)
@@ -75,9 +84,9 @@ namespace GreenhouseConstruction
 
                     var b = farm.buildings[i];
 
-                    if (b.buildingType.Value == "SpecialGreenhouse" && !(b is Custom_Greenhouse_Building)) {
+                    if (b.buildingType.Value == "GreenhouseConstruction_SpecialGreenhouse" && !(b is CustomGreenhouseBuilding)) {
 
-                        farm.buildings[i] = new Custom_Greenhouse_Building();
+                        farm.buildings[i] = new CustomGreenhouseBuilding();
                         farm.buildings[i].buildingType.Value = b.buildingType.Value;
                         farm.buildings[i].daysOfConstructionLeft.Value = b.daysOfConstructionLeft.Value;
                         farm.buildings[i].indoors.Value = b.indoors.Value;
@@ -103,7 +112,7 @@ namespace GreenhouseConstruction
 
                 if (Game1.MasterPlayer.mailReceived.Contains("ccPantry")){
 
-                    blueprints.Add(new BluePrint("SpecialGreenhouse"));
+                    blueprints.Add(new BluePrint("GreenhouseConstruction_SpecialGreenhouse"));
                 
                 }
             
@@ -118,12 +127,12 @@ namespace GreenhouseConstruction
 
         public void Edit<T>(IAssetData asset)
         {
-            asset.AsDictionary<string, string>().Data.Add("SpecialGreenhouse", "335 50 709 100 390 300/7/3/3/2/-1/-1/SpecialGreenhouse/Special Greenhouse/A place to grow crops year-round./Buildings/none/96/96/20/null/Farm/100000/false");
+            asset.AsDictionary<string, string>().Data.Add("GreenhouseConstruction_SpecialGreenhouse", "335 50 709 100 390 300/7/3/3/2/-1/-1/GreenhouseConstruction_SpecialGreenhouse/Special Greenhouse/A place to grow crops year-round./Buildings/none/96/96/20/null/Farm/100000/false");
         }
 
         public bool CanLoad<T>(IAssetInfo asset)
         {
-            if (asset.AssetNameEquals("Buildings\\SpecialGreenhouse") || asset.AssetNameEquals("Maps\\SpecialGreenhouse")) {
+            if (asset.AssetNameEquals("Buildings\\GreenhouseConstruction_SpecialGreenhouse") || asset.AssetNameEquals("Maps\\GreenhouseConstruction_SpecialGreenhouse")) {
 
                 return true;
             
@@ -135,14 +144,14 @@ namespace GreenhouseConstruction
 
         public T Load<T>(IAssetInfo asset)
         {
-            if (asset.AssetNameEquals("Buildings\\SpecialGreenhouse"))
+            if (asset.AssetNameEquals("Buildings\\GreenhouseConstruction_SpecialGreenhouse"))
             {
 
                 return (T)(object)this.GreenhouseExterior;
 
             }
 
-            else if (asset.AssetNameEquals("Maps\\SpecialGreenhouse"))
+            else if (asset.AssetNameEquals("Maps\\GreenhouseConstruction_SpecialGreenhouse"))
             {
 
                 return (T)(object)Game1.content.Load<xTile.Map>("Maps\\Greenhouse");
