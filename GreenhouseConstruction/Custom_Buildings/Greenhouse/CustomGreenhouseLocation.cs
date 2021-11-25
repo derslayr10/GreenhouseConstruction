@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Xml.Serialization;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using PyTK.CustomElementHandler;
@@ -7,10 +8,13 @@ using StardewValley.Buildings;
 
 namespace GreenhouseConstruction.Custom_Buildings.Greenhouse
 {
-    public class Custom_Greenhouse_Location : GameLocation, ISaveElement
+
+    [XmlType("Mods_Derslayr_CustomGreenhouseLocation")]
+
+    public class CustomGreenhouseLocation : GameLocation, ISaveElement
     {
 
-        public Custom_Greenhouse_Location() : base("Maps\\Greenhouse", "SpecialGreenhouse") {
+        public CustomGreenhouseLocation() : base("Maps\\Greenhouse", "GreenhouseConstruction_SpecialGreenhouse") {
 
             this.IsGreenhouse = true;
         
@@ -32,7 +36,7 @@ namespace GreenhouseConstruction.Custom_Buildings.Greenhouse
         public object getReplacement()
         {
 
-            Shed custom_Greenhouse = new Shed("Maps\\Greenhouse", "SpecialGreenhouse");
+            Shed custom_Greenhouse = new Shed("Maps\\Greenhouse", "GreenhouseConstruction_SpecialGreenhouse");
             foreach (Vector2 key in this.objects.Keys) {
 
                 custom_Greenhouse.objects.Add(key, this.objects[key]);

@@ -9,15 +9,20 @@
 
   <ItemGroup>
     <PackageReference Include="Pathoschild.Stardew.ModBuildConfig" Version="3.3.0" />
-    <PackageReference Include="Platonymous.PyTK" Version="1.12.40" />
   </ItemGroup>
 
   <ItemGroup>
     <Reference Include="0Harmony">
       <HintPath>..\..\..\SteamLibrary\steamapps\common\Stardew Valley\smapi-internal\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="PyTK">
+      <HintPath>..\..\..\SteamLibrary\steamapps\common\Stardew Valley\Mods\PyTK\PyTK.dll</HintPath>
+      <Private>false</Private>
     </Reference>
     <Reference Include="SpaceCore">
       <HintPath>..\..\..\SteamLibrary\steamapps\common\Stardew Valley\Mods\SpaceCore\SpaceCore.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 </Project>
